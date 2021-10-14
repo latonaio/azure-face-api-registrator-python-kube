@@ -52,9 +52,9 @@ pillow
 ```
     def setPersonImage(self, personId, imagePath, targetFace=None):
         logger.debug('Set person image ' + imagePath)
-        image = open(imagePath, 'r+b')
-        self.face_client.person_group_person.add_face_from_stream(
-            PERSON_GROUP_ID, personId, image, targetFace)
+        with open(imagePath, 'r+b') as image:
+            self.face_client.person_group_person.add_face_from_stream(
+                PERSON_GROUP_ID, personId, image, targetFace)
 ```            
 #### Input-4
 入力データ4として、Azure Face API(Train)への入力は、Azure FaceClient を用いて、主として main.py の次のソースコードにより行われます。  
@@ -64,7 +64,7 @@ pillow
         self.face_client.person_group.train(PERSON_GROUP_ID)
 
         logger.debug('Training the person group...')
-        while (True):
+        while True:
             training_status = self.face_client.person_group.get_training_status(PERSON_GROUP_ID)
             logging.info('Training status: {}.'.format(training_status.status))
             if (training_status.status is TrainingStatusType.succeeded):

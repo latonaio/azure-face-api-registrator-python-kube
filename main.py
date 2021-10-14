@@ -32,9 +32,8 @@ logger = logging.getLogger(__name__)
 
 class FaceRecognition():
     def __init__(self):
-        settings = json.load(
-            open('face-api-config.json', 'r')
-        )
+        with open('face-api-config.json', 'r') as f:
+            settings = json.load(f)
 
         # set PERSON_GROUP_ID from face-api-config.json
         global PERSON_GROUP_ID
@@ -49,10 +48,10 @@ class FaceRecognition():
     def getFaceAttributes(self, imagePath):
         params = ['gender', 'age']
         # return self.face_client.person_group_person.get(PERSON_GROUP_ID, personId)
-        image_data = open(imagePath, 'rb')
-        return self.face_client.face.detect_with_stream(
-            image_data, return_face_attributes=params
-        )
+        with open(imagePath, 'rb') as image_data:
+            return self.face_client.face.detect_with_stream(
+                image_data, return_face_attributes=params
+            )
 
     def createPersonGroup(self):
         logging.debug('Create person group ' + PERSON_GROUP_ID)
@@ -86,16 +85,16 @@ class FaceRecognition():
 
     def setPersonImage(self, personId, imagePath, targetFace=None):
         logger.debug('Set person image ' + imagePath)
-        image = open(imagePath, 'r+b')
-        self.face_client.person_group_person.add_face_from_stream(
-            PERSON_GROUP_ID, personId, image, targetFace)
+        with open(imagePath, 'r+b') as image:
+            self.face_client.person_group_person.add_face_from_stream(
+                PERSON_GROUP_ID, personId, image, targetFace)
 
     def train(self):
         # Train the person group
         self.face_client.person_group.train(PERSON_GROUP_ID)
 
         logger.debug('Training the person group...')
-        while (True):
+        while True:
             training_status = self.face_client.person_group.get_training_status(PERSON_GROUP_ID)
             logging.info('Training status: {}.'.format(training_status.status))
             if (training_status.status is TrainingStatusType.succeeded):
@@ -107,16 +106,16 @@ class FaceRecognition():
 
     def getPersonIdFromImage(self, faceImage):
         logging.debug(faceImage)
-        image = open(faceImage, 'r+b')
 
         # Detect faces
         face_ids = []
-        faces = face_client.face.detect_with_stream(image)
+        with open(faceImage, 'r+b') as image:
+            faces = self.face_client.face.detect_with_stream(image)
         for face in faces:
             logging.info(face)
             face_ids.append(face.face_id)
 
-        return face_client.face.identify(face_ids, PERSON_GROUP_ID)
+        return self.face_client.face.identify(face_ids, PERSON_GROUP_ID)
 
 
 def getRectangle(face_rectangle):
