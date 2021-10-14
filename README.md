@@ -132,4 +132,4 @@ get_one_kanbanのメソッドで動作するので、Jobとして起動します
     multiple: yes
 ```
 ## Flowchart
-![フローチャート図](https://bitbucket.org/latonaio/azure-face-api-registrator-kube/raw/6a032ce3c31b0503aa6087fd0413ef889d567cf7/doc/flowchart.png)
+![フローチャート図](doc/flowchart.png)
