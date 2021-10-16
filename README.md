@@ -1,10 +1,12 @@
 # azure-face-api-registrator-kube   
 ## 概要  
-1枚の画像を Azure Face API(Detect) にかけ、返り値として、画像に映っているすべての人物の顔の位置座標(X軸/Y軸)、性別・年齢等の情報を取得します。   
+1枚の画像を Azure Face API(Detect) にかけ、返り値として、画像に映っているすべての人物の顔の位置座標、性別・年齢等の情報を取得します。   
 Azure Face API の仕様により、顔の位置座標を形成する長方形の面積が最も広い顔が先頭に来ます。    
-この仕様を利用して、その先頭の顔の FaceID、性別・年齢 等の 情報 を保持します。  
-当該 Face ID を Azure Face API(Persisted Faces - Post) に入力して、Azure Face API の Person Group に登録します。      
-次いで、Azure Face API の AI が認識できるようにするために、Azure Face API(Train) を実行します。        
+この仕様を利用して、その先頭の顔の 位置座標、性別・年齢 等の 情報 を保持します。  
+次に、この位置座標を使って、その位置座標の通り、当該画像を切り取ります。  
+続いて、Azure Face API(Person Group _ Person - Create) に1つのレコードを登録します。  
+そして、Azure Face API(Person Group _ Person - Add Face) に当該切り取られた画像を入力して、当該レコードに画像を更新します。        
+最後に、Azure Face API の AI が認識できるようにするために、Azure Face API(Train) を実行します。        
 参考：Azure Face API の Person Group は、Azure Face API ユーザ のインスタンス毎に独立した顔情報の維持管理の単位です。    
 
 ## 前提条件    
