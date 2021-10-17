@@ -6,7 +6,8 @@ Azure Face API の仕様により、顔の位置座標を形成する長方形�
 次に、この位置座標を使って、その位置座標の通り、当該画像を切り取ります。  
 続いて、Azure Face API(Person Group _ Person - Create) に1つのレコードを登録します。  
 そして、Azure Face API(Person Group _ Person - Add Face) に当該切り取られた画像を入力して、当該レコードに画像を更新します。        
-最後に、Azure Face API の AI が認識できるようにするために、Azure Face API(Train) を実行します。        
+最後に、Azure Face API の AI の学習内容に更新をかけるために、Azure Face API(Train) を実行します。 
+  
 参考：Azure Face API の Person Group は、Azure Face API ユーザ のインスタンス毎に独立した顔情報の維持管理の単位です。    
 
 ## 前提条件    
@@ -49,7 +50,7 @@ pillow
             )
 ```
 #### Input-3
-入力データ3として、Azure Face API(Persisted Faces - Post)への入力は、Azure FaceClient を用いて、主として main.py の次のソースコードにより行われます。  
+入力データ3として、Azure Face API(Person Group _ Person - Create)、ならびに、Azure Face API(Person Group _ Person - Add Face)への入力は、Azure FaceClient を用いて、主として main.py の次のソースコードにより行われます。  
 
 ```
     def setPersonImage(self, personId, imagePath, targetFace=None):
