@@ -15,8 +15,6 @@ import logging
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType
-# AION用モジュール
-from aion.microservice import main_decorator, Options, WITHOUT_KANBAN
 # RabbitMQ用モジュール
 from rabbitmq_client import RabbitmqClient
 # JSONロギング用モジュール
@@ -201,12 +199,6 @@ async def main():
                 'error': str(e),
             })
 
-
-@main_decorator(SERVICE_NAME, WITHOUT_KANBAN)
-def main_wrapper(opt: Options):
-    logger.info('start')
+if __name__ == '__main__':
     asyncio.run(main())
 
-
-if __name__ == '__main__':
-    main_wrapper()

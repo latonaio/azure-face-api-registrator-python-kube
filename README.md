@@ -18,10 +18,12 @@ Azure Face API サービス に アクセスキー、エンドポイント、Per
 登録されたエンドポイント、アクセスキー、Person Group を、本リポジトリ内の face-api-config.json に記載してください。  
 
 ## Requirements  
+azure-face-api の version を指定します。  
+本レポジトリの requirements.txt では、下記のように記載されています。  
 ```
 azure-cognitiveservices-vision-face==0.4.1
-pillow
 ```
+
 ## I/O
 #### Input-1
 入力データ1のJSONフォーマットは、inputs/sample.json にある通り、次の様式です。  
@@ -130,12 +132,16 @@ AzureFaceAPIの返り値としての性別・年齢情報
 make docker-build
 ```
 2. aion-service-definitions/services.ymlに設定を記載し、AionCore経由でKubernetesコンテナを起動します。  
-services.ymlへの記載例：  
-get_one_kanbanのメソッドで動作するので、Jobとして起動します。  
+services.ymlへの記載例：   
 ```
   azure-face-api-registrator-kube:
-    always: no
-    multiple: yes
+    startup: yes
+    always: yes
+    scale: 1
+    env:
+      RABBITMQ_URL: amqp://username:password@rabbitmq:5672/virtualhost
+      QUEUE_FROM: queue_from
+      QUEUE_TO: queue_to
 ```
 ## Flowchart
 ![フローチャート図](doc/flowchart.png)
