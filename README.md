@@ -140,7 +140,7 @@ services.ymlへの記載例：
     scale: 1
     env:
       RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/xxxxxxxx
-      QUEUE_FROM: azure-face-api-registrator-kube-queue
+      QUEUE_ORIGIN: azure-face-api-registrator-kube-queue
       QUEUE_TO: register-face-to-guest-table-kube-queue
 ```
 ## Flowchart
