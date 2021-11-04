@@ -17,7 +17,7 @@ Azure Face API の仕様により、顔の位置座標を形成する長方形�
 Azure Face API サービス に アクセスキー、エンドポイント、Person Group を登録します。  
 登録されたエンドポイント、アクセスキー、Person Group を、本リポジトリ内の face-api-config.json に記載してください。  
 
-## Requirements  
+## Requirements（Azure Face API の Version 指定)    
 azure-face-api の version を指定します。  
 本レポジトリの requirements.txt では、下記のように記載されています。  
 ```
@@ -139,9 +139,9 @@ services.ymlへの記載例：
     always: yes
     scale: 1
     env:
-      RABBITMQ_URL: amqp://username:password@rabbitmq:5672/virtualhost
-      QUEUE_FROM: queue_from
-      QUEUE_TO: queue_to
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/xxxxxxxx
+      QUEUE_FROM: azure-face-api-registrator-kube-queue
+      QUEUE_TO: register-face-to-guest-table-kube-queue
 ```
 ## Flowchart
 ![フローチャート図](doc/flowchart.png)
