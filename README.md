@@ -11,7 +11,9 @@ Azure Face API の仕様により、顔の位置座標を形成する長方形�
 参考：Azure Face API の Person Group は、Azure Face API ユーザ のインスタンス毎に独立した顔情報の維持管理の単位です。    
 
 ## azure-face-api-registrator-kube を使用したエッジコンピューティングアーキテクチャの一例  
-![フローチャート図](doc/omotebako_architecture_20211016.drawio.png)  
+azure-face-api-registrator-kube は、以下の黄色い枠の部分のリソースです。  
+
+![フローチャート図](doc/omotebako_architecture_20211104.drawio.png)  
 
 ## 前提条件    
 Azure Face API サービス に アクセスキー、エンドポイント、Person Group を登録します。  
