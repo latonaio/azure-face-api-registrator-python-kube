@@ -23,7 +23,7 @@ Azure Face API サービス に アクセスキー、エンドポイント、Per
 azure-face-api の version を指定します。  
 本レポジトリの requirements.txt では、下記のように記載されています。  
 ```
-azure-cognitiveservices-vision-face==0.4.1
+azure-cognitiveservices-vision-face==0.5.0
 ```
 
 ## I/O
@@ -31,9 +31,9 @@ azure-cognitiveservices-vision-face==0.4.1
 入力データ1のJSONフォーマットは、inputs/sample.json にある通り、次の様式です。  
 ```
 {
-    "output_data_path": "/var/lib/aion/Data/direct-next-service_1",
+    "output_data_path": "/var/lib/aion/Data/ui-backend-for-omotebako",
     "guest_id": 1,
-    "face_image_path": "/var/lib/aion/Data/direct-next-service_1/1634173065679.jpg"
+    "face_image_path": "/var/lib/aion/Data/ui-backend-for-omotebako/1634173065679.jpg"
 }
 ```
 1. 入力データのファイルパス(output_data_path)    
@@ -109,7 +109,7 @@ azure-cognitiveservices-vision-face==0.4.1
 ```
 {
     "result": true,
-    "filepath": "/var/lib/aion/Data/direct-next-service_1/634173065679.jpg",
+    "filepath": "/var/lib/aion/Data/azure-face-api-registrator-kube/634173065679.jpg",
     "guest_id": 1,
     "face_id_azure": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "attributes": {
