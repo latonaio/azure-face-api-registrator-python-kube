@@ -26,6 +26,13 @@ azure-face-api の version を指定します。
 azure-cognitiveservices-vision-face==0.5.0
 ```
 
+## Recognition API / Detection API の Version  
+Azure Face API で使用する Recognition API / Detection API のバージョン指定は、関連ソースコードとともに、main.py の中にあります。  
+```
+RECOGNITION_MODEL="recognition_04"
+DETECTION_MODEL="detection_03"
+```
+
 ## I/O
 #### Input-1
 入力データ1のJSONフォーマットは、inputs/sample.json にある通り、次の様式です。  
