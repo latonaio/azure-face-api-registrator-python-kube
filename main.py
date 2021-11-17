@@ -26,7 +26,8 @@ SERVICE_NAME = 'azure-face-api-registrator-kube'
 PERSON_GROUP_ID = ''
 logger = logging.getLogger(__name__)
 
-
+RECOGNITION_MODEL="recognition_04"
+DETECTION_MODEL="detection_03"
 
 class FaceRecognition():
     def __init__(self):
@@ -44,11 +45,10 @@ class FaceRecognition():
         )
 
     def getFaceAttributes(self, imagePath):
-        params = ['gender', 'age']
         # return self.face_client.person_group_person.get(PERSON_GROUP_ID, personId)
         with open(imagePath, 'rb') as image_data:
             return self.face_client.face.detect_with_stream(
-                image_data, return_face_attributes=params
+                image_data, recognition_model=RECOGNITION_MODEL
             )
 
     def createPersonGroup(self):
@@ -85,7 +85,7 @@ class FaceRecognition():
         logger.debug('Set person image ' + imagePath)
         with open(imagePath, 'r+b') as image:
             self.face_client.person_group_person.add_face_from_stream(
-                PERSON_GROUP_ID, personId, image, targetFace)
+                PERSON_GROUP_ID, personId, image, targetFace,detection_model=DETECTION_MODEL)
 
     def train(self):
         # Train the person group
@@ -108,7 +108,7 @@ class FaceRecognition():
         # Detect faces
         face_ids = []
         with open(faceImage, 'r+b') as image:
-            faces = self.face_client.face.detect_with_stream(image)
+            faces = self.face_client.face.detect_with_stream(image,recognition_model=RECOGNITION_MODEL)
         for face in faces:
             logging.info(face)
             face_ids.append(face.face_id)
@@ -160,16 +160,12 @@ async def main():
                 guest_id = message.data.get('guest_id')
                 filepath = message.data.get('face_image_path')
                 output_path = message.data.get('output_data_path')
+                
 
                 fr = FaceRecognition()
                 person_list = fr.getPersonList()
                 ids = len(person_list)
                 person = fr.getFaceAttributes(filepath)
-                # 一番大きい顔を選ぶ
-                attributes = {
-                    'gender': str(person[0].face_attributes.gender).lstrip('Gender.'),
-                    'age': str(person[0].face_attributes.age)
-                }
                 now = datetime.datetime.now()
                 tmp_file = os.path.join(output_path, now.strftime('%Y%m%d_%H%M%S') + '.jpg')
                 image_data = Image.open(filepath)
@@ -179,13 +175,11 @@ async def main():
                 fr.setPersonImage(person_id, tmp_file, person[0].face_rectangle)
                 fr.train()
                 os.remove(tmp_file)
-
                 payload = {
                     'result': True,
                     'filepath': filepath,
                     'guest_id': guest_id,
                     'face_id_azure': str(person_id),
-                    'attributes': attributes,
                 }
                 logger.debug({
                     'message': 'send message',
