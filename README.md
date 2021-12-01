@@ -1,4 +1,4 @@
-# azure-face-api-registrator-kube   
+# azure-face-api-registrator-python-kube   
 ## 概要  
 1枚の画像を Azure Face API(Detect) にかけ、返り値として、画像に映っているすべての人物の顔の位置座標、性別・年齢等の情報を取得します。   
 Azure Face API の仕様により、顔の位置座標を形成する長方形の面積が最も広い顔が先頭に来ます。    
@@ -10,10 +10,17 @@ Azure Face API の仕様により、顔の位置座標を形成する長方形�
   
 参考：Azure Face API の Person Group は、Azure Face API ユーザ のインスタンス毎に独立した顔情報の維持管理の単位です。    
 
-## azure-face-api-registrator-kube を使用したエッジコンピューティングアーキテクチャの一例  
-azure-face-api-registrator-kube は、以下の黄色い枠の部分のリソースです。  
+## azure-face-api-registrator-python-kube を使用したエッジコンピューティングアーキテクチャの一例  
+azure-face-api-registrator-python-kube は、以下の黄色い枠の部分のリソースです。  
 
 ![フローチャート図](doc/omotebako_architecture_20211104.drawio.png)  
+
+## 動作環境    
+
+* OS: LinuxOS    
+* CPU: ARM/AMD/Intel   
+* Kubernetes    
+* Python Runtime
 
 ## 前提条件    
 Azure Face API サービス に アクセスキー、エンドポイント、Person Group を登録します。  
@@ -116,7 +123,7 @@ DETECTION_MODEL="detection_03"
 ```
 {
     "result": true,
-    "filepath": "/var/lib/aion/Data/azure-face-api-registrator-kube/634173065679.jpg",
+    "filepath": "/var/lib/aion/Data/azure-face-api-registrator-python-kube/634173065679.jpg",
     "guest_id": 1,
     "face_id_azure": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "attributes": {
@@ -143,13 +150,13 @@ make docker-build
 2. aion-service-definitions/services.ymlに設定を記載し、AionCore経由でKubernetesコンテナを起動します。  
 services.ymlへの記載例：   
 ```
-  azure-face-api-registrator-kube:
+  azure-face-api-registrator-python-kube:
     startup: yes
     always: yes
     scale: 1
     env:
       RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/xxxxxxxx
-      QUEUE_ORIGIN: azure-face-api-registrator-kube-queue
+      QUEUE_ORIGIN: azure-face-api-registrator-python-kube-queue
       QUEUE_TO: register-face-to-guest-table-kube-queue
 ```
 ## Flowchart

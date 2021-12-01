@@ -22,7 +22,7 @@ from custom_logger import init_logger
 
 from PIL import ImageDraw, Image
 
-SERVICE_NAME = 'azure-face-api-registrator-kube'
+SERVICE_NAME = 'azure-face-api-registrator-python-kube'
 PERSON_GROUP_ID = ''
 logger = logging.getLogger(__name__)
 

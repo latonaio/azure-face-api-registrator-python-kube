@@ -3,7 +3,7 @@
 PUSH=$1
 DATE="$(date "+%Y%m%d%H%M")"
 REPOSITORY_PREFIX="latonaio"
-SERVICE_NAME="azure-face-api-registrator-kube"
+SERVICE_NAME="azure-face-api-registrator-python-kube"
 
 DOCKER_BUILDKIT=1 docker build --no-cache --secret id=ssh,src=$HOME/.ssh/id_rsa --progress=plain -t ${SERVICE_NAME}:"${DATE}" .
 

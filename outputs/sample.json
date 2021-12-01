@@ -1,6 +1,6 @@
 {
     "result": true,
-    "filepath": "/var/lib/aion/Data/azure-face-api-registrator-kube/1634173065679.jpg",
+    "filepath": "/var/lib/aion/Data/azure-face-api-registrator-python-kube/1634173065679.jpg",
     "guest_id": 1,
     "face_id_azure": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "attributes": {

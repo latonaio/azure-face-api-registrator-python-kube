@@ -3,7 +3,7 @@ FROM python:3.9.6-slim-bullseye
 
 # Definition of a Device & Service
 ENV POSITION=Runtime \
-    SERVICE=azure-face-api-registrator-kube \
+    SERVICE=azure-face-api-registrator-python-kube \
     AION_HOME=/var/lib/aion
 
 # Setup Directoties
